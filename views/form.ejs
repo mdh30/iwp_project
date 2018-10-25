@@ -1,0 +1,77 @@
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>data retrieval</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="#"><img src="images/logo.png" style="height:40px">RAKSHAK</a>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Logout</a></li>
+        </ul>
+    </nav>
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="leftCol">
+                <li class="item"><a href="#">Live Location</a></li>
+                <li class="item active"><a href="#">form</a></li>
+                <li class="item"><a href="#">Contacts</a></li>
+            </ul>
+        </div>
+        <div class="col-md-10" id="form">
+            <!-- place form -->
+            <h2 style="text-align: center;">Lifeline</h2><br>
+            <br>
+            <center>
+                <form action="/action_page.php">
+                    Name:<br>
+                    <input type="text" name="name" placeholder="Name" id="name">
+                    <br><br>
+                    Date of Birth<br>
+                    <input type="date" name="dob" id="dob">
+                    <br><br>
+                    Contact:<br>
+                    <input type="tel" name="contact" placeholder="Contact" id="contact">
+                    <br><br>
+                <select id ="location">
+                    <option value="Jamshedpur" >Jamshedpur</option>
+                    <option value="Ranchi" selected>Ranchi</option>
+                    <option value="Dhanbad">Dhanbad</option>
+                </select>
+                <input type ="button" onclick="insert()" value="click">
+            </form>
+            </center>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js">
+    </script>
+    <script src="js/fire.js"></script>
+    <script>
+    // form processing
+        // database connection
+        //insert value to database.
+        function insert(){
+            var user_name = document.getElementById("name").value;
+            var contact = document.getElementById("contact").value;
+            var dob = document.getElementById("dob").value;
+            var loc = document.getElementById("location").value;
+            firebase.database().ref().child('lifeline/'+user_name).set({
+                dateOfBirth:dob,
+                contact:contact,
+                location:loc
+            });
+            document.getElementById("name").value = "";
+            document.getElementById("contact").value = "";
+            document.getElementById("dob").value = "";
+        }
+    </script>
+</body>
+</html> 
